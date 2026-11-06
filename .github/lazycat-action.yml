@@ -1,0 +1,14 @@
+update:
+  version_source:
+    type: image
+    image: ech0
+    channel: stable
+    sort: semver
+    tag_regex: '^v?[0-9]+[.][0-9]+[.][0-9]+$'
+    version_template: '{version}'
+images:
+  ech0:
+    source: sn0wl1n/ech0
+    require_digest_match: true
+    platforms:
+      - linux/amd64

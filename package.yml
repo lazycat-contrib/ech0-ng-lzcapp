@@ -1,0 +1,18 @@
+package: community.lazycat.app.ech0-ng
+name: Ech0
+version: 0.0.0
+description: "Minimal self-hosted personal space: notes, link cards, media attachments, tags, comments, RSS and backup export."
+min_os_version: "1.5.0"
+homepage: https://github.com/lin-snow/Ech0
+author: lin-snow
+license: AGPL-3.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Ech0
+    description: "极简自托管个人空间：写想法、挂链接卡片、传媒体、标签评论、RSS 与备份导出。"
+  en:
+    name: Ech0
+    description: "Minimal self-hosted personal space: notes, link cards, media attachments, tags, comments, RSS and backup export."

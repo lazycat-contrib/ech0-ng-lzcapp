@@ -1,0 +1,46 @@
+application:
+  subdomain: ech0
+  multi_instance: false
+  # Ech0 has its own account system: the first registered account becomes Owner
+  # (admin) and registration is self-service, so the app is exposed directly and
+  # authenticates with its own login page.
+  public_path:
+    - /
+  upstreams:
+    - location: /package-licenses/
+      backend: file:///lzcapp/pkg/content/licenses/
+    - location: /
+      backend: http://ech0:6277/
+
+services:
+  ech0:
+    # upstream: sn0wl1n/ech0:v5.9.5
+    image: docker.1ms.run/sn0wl1n/ech0:v5.9.5
+    environment:
+      # No ECH0_ prefix on this variable. If unset the process generates an
+      # ephemeral secret and every restart invalidates all issued tokens, so pin it.
+      - JWT_SECRET={{ printf "%x" (stable_secret "ech0#jwt_secret") }}
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/var/data:/app/data
+
+usage: |
+  Ech0 是一个极简的个人自托管内容空间：写想法、挂链接卡片、传图片音视频，
+  支持标签、评论、RSS 输出与备份导出。
+
+  使用方法：
+  1. 打开应用会进入 Ech0 的登录/注册页。第一次使用请点「注册」，
+     注册的第一个账号自动成为 Owner（管理员），拥有发布权限。
+  2. 默认只有特权账号可以发布内容，其他人注册后只能浏览与评论，
+     可在管理面板里调整该策略。
+  3. 内容可以导出为可离线浏览的「胶囊」，也能生成 RSS 供别人订阅。
+
+  数据与安全：
+  - 所有数据在 /lzcapp/var/data（SQLite 与附件），随应用持久化，
+    卸载应用会一并删除，重要内容请先导出备份。
+  - 本应用直接对外开放，由 Ech0 自己的登录页鉴权（使用了 public_path），
+    请务必设置足够强的密码。
+  - 登录令牌的签名密钥已固定，容器或应用重启不会让所有人被登出。
+
+  说明：
+  - 未做实机验证：注册登录、发布内容、附件上传与 RSS 输出均未在设备上实测。
