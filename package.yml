@@ -1,6 +1,6 @@
 package: community.lazycat.app.ech0-ng
 name: Ech0
-version: 0.0.0
+version: 5.9.5
 description: "Minimal self-hosted personal space: notes, link cards, media attachments, tags, comments, RSS and backup export."
 min_os_version: "1.5.0"
 homepage: https://github.com/lin-snow/Ech0
